@@ -12,11 +12,12 @@ import TablePokHead from './TableParts/TablePokHead'
 import TablePokRow from './TableParts/TablePokRow'
 import TablePokToolbar from './TableParts/TablePokToolbar'
 
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
+		marginTop: '20px',
 	},
 	paper: {
 		width: '100%',
@@ -97,8 +98,16 @@ const TableData = ({ componentState, componentActions }) => {
 	)
 }
 
-// TableData.propTypes = {
-
-// }
+TableData.propTypes = {
+	componentState: PropTypes.shape({
+		order: PropTypes.isRequired,
+		orderBy: PropTypes.string,
+		page: PropTypes.number.isRequired,
+		rowsPerPage: PropTypes.number,
+		rows: PropTypes.arrayOf(PropTypes.object),
+		findText: PropTypes.string,
+	}),
+	componentActions: PropTypes.objectOf(PropTypes.func),
+}
 
 export default TableData

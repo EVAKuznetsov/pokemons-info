@@ -28,8 +28,9 @@ const PokemonType = ({ type }) => {
 			display="inline"
 			bgcolor={typeColors[type]}
 			color="#ffffff"
-			padding={'5px'}
+			padding={'2px 8px'}
 			margin={'5px'}
+			lineHeight={0}
 			borderRadius={5}
 		>
 			{type}

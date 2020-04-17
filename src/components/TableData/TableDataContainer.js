@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { inject, observer } from 'mobx-react'
 
 import TableData from './TableData'
 import Loader from '../Loader'
+import ErrorMessage from '../ErrorMessage'
 
-const TableDataContainer = ({ pokedexStore }) => {
-	const [order, setOrder] = React.useState('asc')
-	const [orderBy, setOrderBy] = React.useState('')
-	const [page, setPage] = React.useState(0)
-	const [rowsPerPage, setRowsPerPage] = React.useState(5)
-	const { pokemonData: rows, isLoading, findText } = pokedexStore
+const TableDataContainer = ({ pokedexStore, activePokemonStore }) => {
+	const { pokemonData: rows, isLoading, findText, error } = pokedexStore
+	const [order, setOrder] = useState('asc')
+	const [orderBy, setOrderBy] = useState('')
+	const [page, setPage] = useState(0)
+	const [rowsPerPage, setRowsPerPage] = useState(5)
+
+	useEffect(() => {
+		const countAllPage = Math.floor(rows.length / rowsPerPage)
+		if (countAllPage < page) setPage(countAllPage)
+	}, [page, rows.length, rowsPerPage])
 
 	function descendingComparator(a, b, orderBy) {
 		if (b[orderBy] < a[orderBy]) {
@@ -42,8 +48,8 @@ const TableDataContainer = ({ pokedexStore }) => {
 		setOrder(isAsc ? 'desc' : 'asc')
 		setOrderBy(property)
 	}
-	const handleClick = (event, name) => {
-		alert('модалка')
+	const handleClick = (pokemonData) => {
+		activePokemonStore.setActivePokemon(pokemonData)
 	}
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage)
@@ -59,8 +65,12 @@ const TableDataContainer = ({ pokedexStore }) => {
 	const onClearFilter = () => {
 		pokedexStore.clearFilter()
 	}
+	const onReload = () => {
+		pokedexStore.fetchData()
+	}
 
 	if (isLoading) return <Loader />
+	if (error) return <ErrorMessage text={error} onReload={onReload} />
 	return (
 		<TableData
 			componentState={{
@@ -85,4 +95,4 @@ const TableDataContainer = ({ pokedexStore }) => {
 	)
 }
 
-export default inject('pokedexStore')(observer(TableDataContainer))
+export default inject('pokedexStore', 'activePokemonStore')(observer(TableDataContainer))

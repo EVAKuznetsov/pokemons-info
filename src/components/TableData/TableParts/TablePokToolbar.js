@@ -1,20 +1,20 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/Delete'
-import Tooltip from '@material-ui/core/Tooltip'
 import Box from '@material-ui/core/Box'
 
 import SearchField from '../../SearchField/SearchField'
+import TypesList from '../../TypesList'
 
 const TablePokToolbar = ({ onSearch, onClearFilter, findText }) => {
-	const useToolbarStyles = makeStyles((theme) => ({
+	const useToolbarStyles = makeStyles(() => ({
 		root: {
 			backgroundColor: '#d8d8d873',
 			flexWrap: 'wrap',
-			transition: '0.3s',
 		},
 		highlight: {
 			alignItems: 'center',
@@ -41,25 +41,38 @@ const TablePokToolbar = ({ onSearch, onClearFilter, findText }) => {
 	return (
 		<Toolbar className={classes.root}>
 			<Box className={classes.row}>
-				<Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-					Pokemons!!!
+				<Typography className={classes.title} variant="h4" id="tableTitle" component="div">
+					Pokemons
 				</Typography>
 				<SearchField onSearch={onSearch} />
 			</Box>
-			<Box className={classes.row} justifyContent="flex-end">
-				{findText.length > 0 && (
+			{findText.length > 0 && (
+				<Box className={classes.row} justifyContent="flex-end">
+					<Box marginRight="10px">
+						Filtered text: <b>"{findText}"</b>
+					</Box>
 					<Button
 						variant="contained"
-						color="default"
+						size="small"
+						color="primary"
 						onClick={onClearFilter}
 						className={classes.button}
 						startIcon={<DeleteIcon />}
 					>
 						clear filter
 					</Button>
-				)}
+				</Box>
+			)}
+			<Box className={classes.row}>
+				<TypesList />
 			</Box>
 		</Toolbar>
 	)
+}
+
+TablePokToolbar.propTypes = {
+	onSearch: PropTypes.func.isRequired,
+	onClearFilter: PropTypes.func.isRequired,
+	findText: PropTypes.string,
 }
 export default TablePokToolbar

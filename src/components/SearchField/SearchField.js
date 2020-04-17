@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
-import CachedIcon from '@material-ui/icons/Cached'
+import SearchIcon from '@material-ui/icons/Search'
 import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import { makeStyles } from '@material-ui/core/styles'
-
-import Fab from '@material-ui/core/Fab'
-import DeleteIcon from '@material-ui/icons/Delete'
-import Tooltip from '@material-ui/core/Tooltip'
 
 const useSearchFieldStyles = makeStyles(() => ({
 	input: {
@@ -51,7 +47,7 @@ const SearchField = ({ onSearch }) => {
 					<InputAdornment position="end">
 						{value && (
 							<IconButton onClick={ohSearchHandler} aria-label="search" edge="end">
-								<CachedIcon />
+								<SearchIcon />
 							</IconButton>
 						)}
 					</InputAdornment>
