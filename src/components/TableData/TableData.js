@@ -7,6 +7,8 @@ import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
+import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
 
 import TablePokHead from './TableParts/TablePokHead'
 import TablePokRow from './TableParts/TablePokRow'
@@ -60,31 +62,37 @@ const TableData = ({ componentState, componentActions }) => {
 		<div className={classes.root}>
 			<Paper className={classes.paper}>
 				<TablePokToolbar onSearch={onSearch} findText={findText} onClearFilter={onClearFilter} />
-				<TableContainer>
-					<Table className={classes.table} aria-label="enhanced table" size={'medium'}>
-						<TablePokHead
-							classes={classes}
-							order={order}
-							orderBy={orderBy}
-							onRequestSort={handleRequestSort}
-							rowCount={rows.length}
-						/>
-						<TableBody>
-							{stableSort(rows, getComparator(order, orderBy))
-								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map((row, index) => {
-									return (
-										<TablePokRow key={row.id} row={row} index={index} onClickRow={handleClick} />
-									)
-								})}
-							{emptyRows > 0 && (
-								<TableRow style={{ height: 53 * emptyRows }}>
-									<TableCell colSpan={6} />
-								</TableRow>
-							)}
-						</TableBody>
-					</Table>
-				</TableContainer>
+				{rows.length > 0 ? (
+					<TableContainer>
+						<Table className={classes.table} aria-label="enhanced table" size={'medium'}>
+							<TablePokHead
+								classes={classes}
+								order={order}
+								orderBy={orderBy}
+								onRequestSort={handleRequestSort}
+								rowCount={rows.length}
+							/>
+							<TableBody>
+								{stableSort(rows, getComparator(order, orderBy))
+									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+									.map((row, index) => {
+										return (
+											<TablePokRow key={row.id} row={row} index={index} onClickRow={handleClick} />
+										)
+									})}
+								{emptyRows > 0 && (
+									<TableRow style={{ height: 53 * emptyRows }}>
+										<TableCell colSpan={6} />
+									</TableRow>
+								)}
+							</TableBody>
+						</Table>
+					</TableContainer>
+				) : (
+					<Box margin="25px">
+						<Typography variant="h4">No data...</Typography>
+					</Box>
+				)}
 				<TablePagination
 					rowsPerPageOptions={[10, 20, 50]}
 					component="div"
