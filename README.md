@@ -11,4 +11,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Material-ui
 
 ## Demo
+<<<<<<< Updated upstream
 #### http://eva-site.ru/
+=======
+#### http://eva-site.ru/
+>>>>>>> Stashed changes
