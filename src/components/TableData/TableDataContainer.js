@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 
 import TableData from './TableData'
@@ -10,7 +11,7 @@ const TableDataContainer = ({ pokedexStore, activePokemonStore }) => {
 	const [order, setOrder] = useState('asc')
 	const [orderBy, setOrderBy] = useState('')
 	const [page, setPage] = useState(0)
-	const [rowsPerPage, setRowsPerPage] = useState(5)
+	const [rowsPerPage, setRowsPerPage] = useState(10)
 
 	useEffect(() => {
 		const countAllPage = Math.floor(rows.length / rowsPerPage)
@@ -93,6 +94,19 @@ const TableDataContainer = ({ pokedexStore, activePokemonStore }) => {
 			}}
 		/>
 	)
+}
+
+TableDataContainer.propTypes = {
+	pokedexStore: PropTypes.shape({
+		pokemonData: PropTypes.array,
+		isLoading: PropTypes.bool,
+		selectedTags: PropTypes.array,
+		findText: PropTypes.string,
+		error: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+	}),
+	activePokemonStore: PropTypes.shape({
+		activePokemonData: PropTypes.object,
+	}),
 }
 
 export default inject('pokedexStore', 'activePokemonStore')(observer(TableDataContainer))

@@ -10,8 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useSearchFieldStyles = makeStyles(() => ({
 	input: {
-		width: '400px',
-		marginLeft: '10px',
+		width: '100%',
 	},
 	clear: {
 		flexGrow: 1,

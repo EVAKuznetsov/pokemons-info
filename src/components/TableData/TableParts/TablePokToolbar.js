@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid'
 
 import SearchField from '../../SearchField/SearchField'
 import TypesList from '../../TypesList'
@@ -15,6 +16,8 @@ const TablePokToolbar = ({ onSearch, onClearFilter, findText }) => {
 		root: {
 			backgroundColor: '#d8d8d873',
 			flexWrap: 'wrap',
+			paddingTop: '15px',
+			paddingBottom: '15px',
 		},
 		highlight: {
 			alignItems: 'center',
@@ -22,12 +25,6 @@ const TablePokToolbar = ({ onSearch, onClearFilter, findText }) => {
 
 		title: {
 			flex: '1 1 100%',
-		},
-		row: {
-			display: 'flex',
-			alignItems: 'center',
-			width: '100%',
-			padding: '0px 10px 15px 10px',
 		},
 		clear: {
 			flexGrow: 1,
@@ -40,32 +37,37 @@ const TablePokToolbar = ({ onSearch, onClearFilter, findText }) => {
 
 	return (
 		<Toolbar className={classes.root}>
-			<Box className={classes.row}>
-				<Typography className={classes.title} variant="h4" id="tableTitle" component="div">
-					Pokemons
-				</Typography>
-				<SearchField onSearch={onSearch} />
-			</Box>
-			{findText.length > 0 && (
-				<Box className={classes.row} justifyContent="flex-end">
-					<Box marginRight="10px">
-						Filtered text: <b>"{findText}"</b>
-					</Box>
-					<Button
-						variant="contained"
-						size="small"
-						color="primary"
-						onClick={onClearFilter}
-						className={classes.button}
-						startIcon={<DeleteIcon />}
-					>
-						clear filter
-					</Button>
-				</Box>
-			)}
-			<Box className={classes.row}>
-				<TypesList />
-			</Box>
+			<Grid container alignItems="center" spacing={2}>
+				<Grid item xs={12} sm>
+					<Typography className={classes.title} variant="h4" id="tableTitle" component="div">
+						Pokemons
+					</Typography>
+				</Grid>
+				<Grid item xs={12} sm={6} md={3}>
+					<SearchField onSearch={onSearch} />
+				</Grid>
+
+				{findText.length > 0 && (
+					<Grid container item alignItems="center" xs={12} justify="flex-end">
+						<Box marginRight="10px">
+							Filtered text: <b>"{findText}"</b>
+						</Box>
+						<Button
+							variant="contained"
+							size="small"
+							color="primary"
+							onClick={onClearFilter}
+							startIcon={<DeleteIcon />}
+						>
+							clear filter
+						</Button>
+					</Grid>
+				)}
+
+				<Grid item xs={12}>
+					<TypesList />
+				</Grid>
+			</Grid>
 		</Toolbar>
 	)
 }

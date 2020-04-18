@@ -1,14 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { makeStyles } from '@material-ui/core/styles'
 import Chip from '@material-ui/core/Chip'
 import Box from '@material-ui/core/Box'
-// const TypeForSort = ({ type }) => {}
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
-		// justifyContent: 'center',
 		flexWrap: 'wrap',
 		'& > *': {
 			margin: '5px 10px',
@@ -50,6 +49,19 @@ const TypesList = ({ pokemonTypesStore, pokedexStore }) => {
 			)}
 		</Box>
 	)
+}
+TypesList.propTypes = {
+	pokemonTypesStore: PropTypes.shape({
+		pokemonTypes: PropTypes.array,
+		error: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+	}),
+	pokedexStore: PropTypes.shape({
+		pokemonData: PropTypes.array,
+		isLoading: PropTypes.bool,
+		selectedTags: PropTypes.array,
+		findText: PropTypes.string,
+		error: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+	}),
 }
 
 export default inject('pokemonTypesStore', 'pokedexStore')(observer(TypesList))

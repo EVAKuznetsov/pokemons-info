@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Box from '@material-ui/core/Box'
@@ -30,4 +31,9 @@ const TablePokRow = ({ row, index, onClickRow }) => {
 	)
 }
 
+TablePokRow.propTypes = {
+	row: PropTypes.object,
+	index: PropTypes.number,
+	onClickRow: PropTypes.func.isRequired,
+}
 export default TablePokRow

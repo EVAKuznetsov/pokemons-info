@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Box from '@material-ui/core/Box'
 
 const PokemonType = ({ type }) => {
@@ -36,6 +37,9 @@ const PokemonType = ({ type }) => {
 			{type}
 		</Box>
 	)
+}
+PokemonType.propTypes = {
+	type: PropTypes.string.isRequired,
 }
 
 export default PokemonType

@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: theme.spacing(2),
 	},
 	table: {
-		minWidth: 750,
+		minWidth: 650,
+		overflowX: 'scroll',
 	},
 	visuallyHidden: {
 		border: 0,
@@ -60,7 +61,7 @@ const TableData = ({ componentState, componentActions }) => {
 			<Paper className={classes.paper}>
 				<TablePokToolbar onSearch={onSearch} findText={findText} onClearFilter={onClearFilter} />
 				<TableContainer>
-					<Table className={classes.table} size={'medium'}>
+					<Table className={classes.table} aria-label="enhanced table" size={'medium'}>
 						<TablePokHead
 							classes={classes}
 							order={order}
@@ -85,7 +86,7 @@ const TableData = ({ componentState, componentActions }) => {
 					</Table>
 				</TableContainer>
 				<TablePagination
-					rowsPerPageOptions={[5, 10, 25]}
+					rowsPerPageOptions={[10, 20, 50]}
 					component="div"
 					count={rows.length}
 					rowsPerPage={rowsPerPage}

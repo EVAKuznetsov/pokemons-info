@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Grid from '@material-ui/core/Grid'
@@ -15,72 +13,10 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 
+import useStyles from './styles'
+
 import PokemonType from '../PokemonType'
 import TabPanel from './TabPanel'
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		height: 300,
-		flexGrow: 1,
-		minWidth: 300,
-		transform: 'translateZ(0)',
-		'@media all and (-ms-high-contrast: none)': {
-			display: 'none',
-		},
-	},
-	modal: {
-		display: 'flex',
-		padding: theme.spacing(1),
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	paper: {
-		width: '700px',
-		backgroundColor: theme.palette.background.paper,
-		border: '2px solid #000',
-		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2, 4, 3),
-	},
-	avatar: {
-		height: '150px',
-		marginRight: '20px',
-	},
-	name: {
-		fontSize: '24px',
-		fontWeight: '700',
-	},
-	types: {
-		margin: '20px 0 15px 0',
-	},
-	listRoot: {
-		maxHeight: '200px',
-		position: 'relative',
-		overflow: 'auto',
-		width: '100%',
-	},
-	imagesWrap: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-around',
-		overflow: 'hidden',
-		backgroundColor: theme.palette.background.paper,
-	},
-	tabBody: { width: '100%' },
-	gridList: {
-		width: '100%',
-		flexWrap: 'nowrap',
-		transform: 'translateZ(0)',
-	},
-	title: {
-		color: '#eceef5',
-		fontWeight: 'bold',
-		textShadow: '1px -1px 1px #000',
-	},
-	titleBar: {
-		background:
-			'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-	},
-}))
 
 const PokemonModal = ({ modalState, modalActions }) => {
 	const classes = useStyles()
@@ -109,14 +45,14 @@ const PokemonModal = ({ modalState, modalActions }) => {
 		>
 			<div className={classes.paper}>
 				<Grid container spacing={1}>
-					<Grid item>
+					<Grid item container xs={12} sm justify="center">
 						<img
 							className={classes.avatar}
 							src={pokemon.avatar ? pokemon.avatar : unknownAvatar}
 							alt="avatar"
 						/>
 					</Grid>
-					<Grid item sm container direction="column">
+					<Grid item xs={12} sm container direction="column">
 						<Box className={classes.name}>{pokemon.name}</Box>
 						<Box className={classes.types}>
 							<b>Types:{types}</b>
@@ -126,8 +62,8 @@ const PokemonModal = ({ modalState, modalActions }) => {
 						</Box>
 					</Grid>
 				</Grid>
-				<Grid container>
-					<AppBar position="static" color="default">
+				<Grid container className={classes.tabsWrap}>
+					<AppBar position="static" color="default" className={classes.tabPanel}>
 						<Tabs
 							value={value}
 							onChange={handleChange}
@@ -152,10 +88,10 @@ const PokemonModal = ({ modalState, modalActions }) => {
 					<TabPanel value={value} index={1} className={classes.tabBody}>
 						<div className={classes.imagesWrap}>
 							{images.length > 0 ? (
-								<GridList className={classes.gridList} cols={2.5}>
+								<GridList className={classes.gridList} cellHeight={'auto'} cols={2.5}>
 									{images.map((img) => (
 										<GridListTile key={img.name}>
-											<img src={img.url} alt={img.name} />
+											<img className={classes.imgFromList} src={img.url} alt={img.name} />
 											<GridListTileBar
 												title={img.name}
 												classes={{

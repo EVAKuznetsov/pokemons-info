@@ -13,11 +13,7 @@ function TabPanel(props) {
 			hidden={value !== index}
 			{...other}
 		>
-			{value === index && (
-				<Box minHeight={'200px'} p={3}>
-					{children}
-				</Box>
-			)}
+			{value === index && <Box minHeight={'150px'}>{children}</Box>}
 		</Typography>
 	)
 }

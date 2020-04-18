@@ -1,10 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import TableRow from '@material-ui/core/TableRow'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 
-function TablePokHead(props) {
+function TablePokHead({ classes, order, orderBy, onRequestSort }) {
 	const headCells = [
 		{ id: 'id', numeric: false, sorted: true, label: 'Id' },
 		{ id: 'avatar', numeric: false, sorted: false, label: 'Avatar' },
@@ -12,7 +13,6 @@ function TablePokHead(props) {
 		{ id: 'type', numeric: true, sorted: false, label: 'Type' },
 		{ id: 'base_experience', numeric: true, sorted: true, label: 'Base experience' },
 	]
-	const { classes, order, orderBy, onRequestSort } = props
 	const createSortHandler = (property) => (event) => {
 		onRequestSort(event, property)
 	}
@@ -50,4 +50,9 @@ function TablePokHead(props) {
 	)
 }
 
+TablePokHead.propTypes = {
+	order: PropTypes.string.isRequired,
+	orderBy: PropTypes.string,
+	onRequestSort: PropTypes.func.isRequired,
+}
 export default TablePokHead

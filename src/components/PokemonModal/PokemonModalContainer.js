@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import PokemonModal from './PokemonModal'
 
@@ -36,6 +37,11 @@ const PokemonModalContainer = ({ activePokemonStore }) => {
 	const modalState = { pokemon, open, images, value, unknownAvatar }
 	const modalActions = { onCloseHandler, handleChange }
 	return <PokemonModal modalState={modalState} modalActions={modalActions} />
+}
+PokemonModalContainer.propTypes = {
+	activePokemonStore: PropTypes.shape({
+		activePokemonData: PropTypes.object,
+	}),
 }
 
 export default inject('activePokemonStore')(observer(PokemonModalContainer))
